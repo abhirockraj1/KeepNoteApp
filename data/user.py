@@ -6,7 +6,7 @@ from core.database import Base
 class User(Base):
     __tablename__ = "users"
 
-    id = Column(Integer, primary_key=True, index=True)
-    email = Column(String, unique=True, index=True)
+    email = Column(String, primary_key=True, index=True)
     hashed_password = Column(String)
-
+    
+    owned_notes = relationship("NoteFile", back_populates="owner")

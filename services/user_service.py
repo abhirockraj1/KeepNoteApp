@@ -3,8 +3,8 @@ import models as pydantic_models  # Pydantic models for data validation
 import data as db_schemas    # SQLAlchemy models for database interaction
 from utils import security
 
-def get_user(db: Session, user_id: int):
-    return db.query(db_schemas.User).filter(db_schemas.User.id == user_id).first()
+# def get_user(db: Session, user_id: int):
+#     return db.query(db_schemas.User).filter(db_schemas.User.id == user_id).first()
 
 def get_user_by_email(db: Session, email: str):
     return db.query(db_schemas.User).filter(db_schemas.User.email == email).first()

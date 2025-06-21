@@ -19,13 +19,13 @@ async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = De
     )
     try:
         payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
-        user_id: int = payload.get("sub")
-        if user_id is None:
+        email: str  = payload.get("sub")
+        if email is None:
             raise credentials_exception
-        token_data = pydantic_models.TokenData(id=user_id)
+        token_data = pydantic_models.TokenData(email=email)
     except JWTError:
         raise credentials_exception
-    user = user_service.get_user(db, user_id=token_data.id)
+    user = user_service.get_user_by_email(db, token_data.email)
     if user is None:
         raise credentials_exception
     return user

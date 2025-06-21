@@ -1,6 +1,6 @@
 from fastapi import FastAPI,Request, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
-from endpoints import user
+from endpoints import user, note
 from core.database import Base, engine
 
 Base.metadata.create_all(bind=engine)
@@ -22,6 +22,7 @@ app.add_middleware(
 )
 
 app.include_router(user.router)
+app.include_router(note.router)
 
 if __name__ == "__main__":
     import uvicorn
